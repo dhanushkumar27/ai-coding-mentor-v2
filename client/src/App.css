@@ -1,0 +1,15 @@
+
+.page-container{
+    min-height:100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding:10px;
+}
+
+.body-container{
+    flex-grow:1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

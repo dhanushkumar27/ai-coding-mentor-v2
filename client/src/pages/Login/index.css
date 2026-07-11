@@ -1,0 +1,23 @@
+.login-form{
+    display:flex;
+    flex-direction:column;
+    justify-content: space-between;
+    height: 250px;
+    width:90%;
+    padding:20px;
+    border:1px solid black;
+}
+
+.login-heading{
+    text-align:center;
+}
+
+@media screen and (min-width:1200px){
+    .login-form{
+    
+    height: 250px;
+    width:30%;
+    padding:20px;
+    
+}
+}
