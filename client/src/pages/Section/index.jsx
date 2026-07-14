@@ -1,5 +1,7 @@
-import NavBar from '../../components/NavBar'
-import Footer from '../../components/Footer'
+import WorkSpace from '../../features/workspace/pages/WorkSpace'
+
+import NavBar from '../../common/components/NavBar'
+import Footer from '../../common/components/Footer'
 
 import './index.css'
 
@@ -8,7 +10,7 @@ const Section = () =>{
         <div className='page-container'>
             <NavBar/>
             <div className='body-container'>
-                <h1>Section</h1>
+                <WorkSpace/>
             </div>
             <Footer/>
         </div>

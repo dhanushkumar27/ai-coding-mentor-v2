@@ -1,0 +1,22 @@
+.workSpace-container{
+    width: 100%;
+
+}
+
+@media screen and (min-width:768px){
+    .workSpace-container{
+    display:flex;
+
+   
+}
+    .splitter {
+    width: 10px;
+    background: transparent;
+    cursor: col-resize;
+    flex-shrink: 0;
+}
+
+.splitter:hover {
+    background: #3b82f6;
+}
+}

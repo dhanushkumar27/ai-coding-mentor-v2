@@ -16,8 +16,8 @@ const NavBar = () =>{
 
 
     return(
-            <nav className="navbar navbar-expand-lg bg-body-tertiary">
-                    <div className="container-fluid">
+            <nav className="navbar navbar-expand-lg bg-body-tertiary ">
+                    <div className="container-fluid navbar-main-container">
                         <Link className="navbar-brand" to="/">Navbar</Link>
                         <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon"></span>
@@ -26,8 +26,7 @@ const NavBar = () =>{
                         <div className="navbar-nav ms-auto">
                             <Link className="nav-link" to="/">Home</Link>
                             <Link className="nav-link" to="/section">Section</Link>
-                            <Link className="nav-link" to="/about">About</Link>
-                            <Link className="nav-link" to="/contact">Contact</Link>
+                            
                             <button className="nav-link" onClick={onClickLogout}>Logout</button>
                         </div>
                         </div>
