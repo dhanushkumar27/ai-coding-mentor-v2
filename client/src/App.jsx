@@ -3,7 +3,7 @@ import {BrowserRouter,Route,Routes} from 'react-router-dom'
 import Home from './pages/Home'
 import Login from './pages/Login'
 
-import Workspace from './pages/Workspace'
+import Workspace from './pages/Section'
 import MyLibrary from './pages/MyLibrary'
 
 import NotFound from './pages/NotFound'
