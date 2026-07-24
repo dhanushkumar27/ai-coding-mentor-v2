@@ -23,8 +23,12 @@ const NavBar = () => {
           <span className="nav-link-span">Home</span>
         </Link>
 
-        <Link className="nav-link" to="/section">
-          <span className="nav-link-span">Section</span>
+        <Link className="nav-link" to="/workspace">
+          <span className="nav-link-span">Workspace</span>
+        </Link>
+
+        <Link className="nav-link" to="/myLibrary">
+          <span className="nav-link-span">My Library</span>
         </Link>
 
         <button

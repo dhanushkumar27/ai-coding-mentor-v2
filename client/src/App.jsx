@@ -4,6 +4,7 @@ import Home from './pages/Home'
 import Login from './pages/Login'
 
 import Section from './pages/Section'
+import MyLibrary from './pages/MyLibrary'
 
 import NotFound from './pages/NotFound'
 
@@ -24,10 +25,11 @@ function App() {
 
         <Route exact path="/login" element={<Login/>}/>
         
-        <Route exact path="/section" 
+        <Route exact path="/workspace" 
         element={<ProtectedRoute><Section/></ProtectedRoute>}/>
 
-        
+        <Route exact path="/myLibrary" 
+        element={<ProtectedRoute><MyLibrary/></ProtectedRoute>}/>
 
 
         <Route path="*" element={<NotFound/>}/>

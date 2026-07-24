@@ -1,0 +1,6 @@
+.myLibrary-container{
+    flex-grow:1;
+    display: flex;
+    background-color: white;
+    color:black;
+}
