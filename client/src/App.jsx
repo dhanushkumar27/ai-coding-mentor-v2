@@ -3,7 +3,7 @@ import {BrowserRouter,Route,Routes} from 'react-router-dom'
 import Home from './pages/Home'
 import Login from './pages/Login'
 
-import Section from './pages/Section'
+import Workspace from './pages/Workspace'
 import MyLibrary from './pages/MyLibrary'
 
 import NotFound from './pages/NotFound'
@@ -26,7 +26,7 @@ function App() {
         <Route exact path="/login" element={<Login/>}/>
         
         <Route exact path="/workspace" 
-        element={<ProtectedRoute><Section/></ProtectedRoute>}/>
+        element={<ProtectedRoute><Workspace/></ProtectedRoute>}/>
 
         <Route exact path="/myLibrary" 
         element={<ProtectedRoute><MyLibrary/></ProtectedRoute>}/>
