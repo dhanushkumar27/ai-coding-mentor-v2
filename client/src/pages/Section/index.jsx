@@ -1,6 +1,6 @@
 import WorkSpace from '../../features/workspace/pages/WorkSpace'
 
-import NavBar from '../../common/components/TempBar'
+import NavBar from '../../common/components/NavBar'
 import Footer from '../../common/components/Footer'
 
 import './index.css'
