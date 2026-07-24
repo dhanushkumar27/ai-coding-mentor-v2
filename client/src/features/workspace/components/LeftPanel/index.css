@@ -1,56 +1,148 @@
 .left-panel-main-container{
     display:flex;
-    flex-direction: column;
-    flex-grow: 1;
-    background: white;
-    overflow: auto;
-    border:2px solid black;
-    border-radius: 8px;
+    flex-direction:column;
+    background:#0f172a;
+    border-top-right-radius:12px;
+    border-bottom-right-radius:12px;
+    overflow:hidden;
+    border:1px solid #334155;
+    margin: 1px 0px;
 }
 
+/* ================= HEADER ================= */
+
 .workSpace-left-panel-header{
-    height: 8%;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    padding:8px 20px;
+
+    background:#1e293b;
+
+    border-bottom:1px solid #334155;
+}
+
+.problem-input-container{
     display:flex;
     align-items: center;
-    justify-content: space-between;
-    padding:0px 10px;
-    border-bottom:1px solid black;
+    gap:8px;
+    width:70%;
 }
 
 .user-input-label{
-    font-weight: bold;
-    font-size:16px;
+    font-size:14px;
+    font-weight:600;
+    color:#cbd5e1;
 }
+
 .user-input-element{
-    border-radius: 8px;
-    padding:5px;
-    margin-left:10px;
+    width:50%;
+    padding:8px 15px;
+
+    border:none;
+    outline:none;
+
+    border-radius:8px;
+
+    background:#334155;
+    color:white;
+
+    font-size:15px;
+
+    transition:.25s;
 }
+
+.user-input-element::placeholder{
+    color:#94a3b8;
+}
+
+.user-input-element:focus{
+    box-shadow:0 0 0 2px #3b82f6;
+}
+
+/* ================= BODY ================= */
 
 .workSpace-left-panel-body{
-    flex-grow:1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    flex:1;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    padding:10px;
+
+    background:#111827;
 }
 
+/* ================= FOOTER ================= */
 
 .workSpace-left-panel-footer{
-    height: 8%;
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    padding:0px 10px;
-    border-top:1px solid black;
+
+    display:flex;
+    justify-content:flex-end;
+    gap:10px;
+
+    padding:8px 10px;
+
+    background:#1e293b;
+
+    border-top:1px solid #334155;
 }
 
-.button{
-    margin-left: 10px;
-    border-radius: 8px;
-    padding:6px;
+/* ================= BUTTONS ================= */
+
+.reset-btn{
     border:none;
-    background-color: transparent;
-    border:1px solid black;
-    color:black;
-    font-weight: bold;
+
+    padding:4px 18px;
+    border-radius:8px;
+
+    cursor:pointer;
+
+    background:#475569;
+
+    color:white;
+
+    font-weight:600;
+
+    transition:.25s;
+}
+
+.reset-btn:hover{
+
+    background:#64748b;
+
+}
+
+
+
+.review-btn:hover{
+
+    transform:translateY(-2px);
+
+    box-shadow:0 10px 18px rgba(37,99,235,.35);
+
+}
+
+/* ================= Responsive ================= */
+
+@media(max-width:900px){
+
+.workSpace-left-panel-header{
+
+    flex-direction:column;
+
+    align-items:stretch;
+
+    gap:16px;
+
+}
+
+.problem-input-container{
+
+    width:70%;
+
+}
+
 }

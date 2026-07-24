@@ -1,38 +1,41 @@
-import {Link} from 'react-router-dom'
+import { Link, useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
 
-import {useNavigate} from 'react-router-dom'
+import "./index.css";
 
-import Cookies from 'js-cookie'
+const NavBar = () => {
+  const navigate = useNavigate();
 
+  const onClickLogout = () => {
+    Cookies.remove("jwtToken");
+    navigate("/login", { replace: true });
+  };
 
-import './index.css'
+  return (
+    <nav className="navbar-container">
+      <Link className="brand-logo" to="/">
+        <span className="brand-gradient">Codexa - </span>
+        <span className="brand-letter">D</span>
+    </Link>
 
-const NavBar = () =>{
-    const navigate = useNavigate()
-    const onClickLogout = () => {
-        Cookies.remove("jwtToken")
-        return navigate("/login", {replace:true})
-    }
+      <div className="navbar-sections-container">
+        <Link className="nav-link" to="/">
+          <span className="nav-link-span">Home</span>
+        </Link>
 
+        <Link className="nav-link" to="/section">
+          <span className="nav-link-span">Section</span>
+        </Link>
 
-    return(
-            <nav className="navbar navbar-expand-lg bg-body-tertiary ">
-                    <div className="container-fluid navbar-main-container">
-                        <Link className="navbar-brand" to="/">Navbar</Link>
-                        <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-                        <span className="navbar-toggler-icon"></span>
-                        </button>
-                        <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
-                        <div className="navbar-nav ms-auto">
-                            <Link className="nav-link" to="/">Home</Link>
-                            <Link className="nav-link" to="/section">Section</Link>
-                            
-                            <button className="nav-link" onClick={onClickLogout}>Logout</button>
-                        </div>
-                        </div>
-                    </div>
-                </nav>
-    )
-}
+        <button
+          className="logout-button"
+          onClick={onClickLogout}
+        >
+          Logout
+        </button>
+      </div>
+    </nav>
+  );
+};
 
-export default NavBar
+export default NavBar;

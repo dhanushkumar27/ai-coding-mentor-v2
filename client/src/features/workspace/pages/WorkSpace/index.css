@@ -1,6 +1,5 @@
 .workSpace-container{
     width: 100%;
-
 }
 
 @media screen and (min-width:768px){
@@ -10,7 +9,7 @@
    
 }
     .splitter {
-    width: 10px;
+    width: 5px;
     background: transparent;
     cursor: col-resize;
     flex-shrink: 0;

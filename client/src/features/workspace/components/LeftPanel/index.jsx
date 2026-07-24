@@ -1,29 +1,91 @@
-import CodeEditor from '../CodeEditor'
-import LanguageSelector from '../LanguageSelector'
+import CodeEditor from "../CodeEditor";
+import LanguageSelector from "../LanguageSelector";
 
-import './index.css'
+import "./index.css";
 
-const LeftPanel = (props) =>{
-    const {width, code, setcode,language, onChangeLanguage,setProblemName, onClickReviewCode} = props
-    return(
-        <div className="left-panel-main-container" style={{width: `${width}%`}}>
-            <div  className='workSpace-left-panel-header'>
-                <div>
-                    <label className='user-input-label' htmlFor="userInput">Problem Name :</label>
-                    <input id="userInput" className='user-input-element' onChange={(event)=>{setProblemName(event.target.value)}} type="text" placeholder="Enter the problem name"/>
+const LeftPanel = ({
+    width,
+    problemName,
+    setProblemName,
+    language,
+    onChangeLanguage,
+    code,
+    setcode,
+    onClickReviewCode,
+    onClickResetButton,
+}) => {
+    return (
+        <div
+            className="left-panel-main-container"
+            style={{ width: `${width}%` }}
+        >
+            {/* Header */}
+
+            <div className="workSpace-left-panel-header">
+
+                <div className="problem-input-container">
+
+                    <label
+                        htmlFor="problemInput"
+                        className="user-input-label"
+                    >
+                        Problem Name:
+                    </label>
+
+                    <input
+                        id="problemInput"
+                        className="user-input-element"
+                        type="text"
+                        value={problemName}
+                        placeholder="Ex : Two Sum"
+                        onChange={(e) =>
+                            setProblemName(e.target.value)
+                        }
+                    />
+
                 </div>
-                <LanguageSelector language={language} onChangeLanguage={onChangeLanguage}/>
+
+                <LanguageSelector
+                    language={language}
+                    onChangeLanguage={onChangeLanguage}
+                />
+
             </div>
-            <div className='workSpace-left-panel-body'>
-                <CodeEditor language={language} code={code} setcode={setcode}/>
+
+            {/* Editor */}
+
+            <div className="workSpace-left-panel-body">
+
+                <CodeEditor
+                    language={language}
+                    code={code}
+                    setcode={setcode}
+                />
+
             </div>
-            <div  className='workSpace-left-panel-footer'>
-                <button className='button'>Reset</button>
-                <button className='button' onClick={()=>onClickReviewCode()}>Review Code</button>
+
+            {/* Footer */}
+
+            <div className="workSpace-left-panel-footer">
+
+                <button
+                    className="reset-btn"
+                    onClick={onClickResetButton}
+                >
+                    Reset
+                </button>
+
+                <button
+                    className="review-btn"
+                    onClick={onClickReviewCode}
+                >
+                    Review Code
+                </button>
+
             </div>
+
         </div>
-    )
+    );
+};
 
-}
-
-export default LeftPanel
+export default LeftPanel;

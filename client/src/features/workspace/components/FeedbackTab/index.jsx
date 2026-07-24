@@ -1,17 +1,47 @@
+import responseStatus from "../../constants/responseStatus";
+
+
 import "./index.css";
 
-const FeedbackTab = ({ feedback }) => {
-    if (!feedback) {
+const FeedbackTab = ({
+    feedback,
+   rightPanelStatus,
+    onClickReviewCode,
+}) => {
+
+    // Loading State
+    if (rightPanelStatus === responseStatus.inProgress) {
         return (
-            <div className="feedback-empty">
-                <h2>👨‍🏫 Code Mentor</h2>
+            <div className="feedback-state">
+
+                <div className="loader"></div>
+
+                <h2>Reviewing your code...</h2>
+
                 <p>
-                    Click <strong>Review Code</strong> to receive AI feedback.
+                    AI Mentor is analyzing your solution.
                 </p>
+
             </div>
         );
     }
 
+    // Empty State
+    if (rightPanelStatus === responseStatus.failure) {
+        return (
+            <div className="feedback-state">
+                <h1>Try Again</h1>
+                <button
+                        className="review-btn"
+                        onClick={onClickReviewCode}
+                    >
+                        Review Code
+                </button>
+            </div>
+        );
+    }
+
+    if(rightPanelStatus === responseStatus.success){
     const {
         identifiedProblem = "Unknown Problem",
 
@@ -75,44 +105,45 @@ const FeedbackTab = ({ feedback }) => {
 
             </div>
 
-            {strengths.length > 0 && (
+            
+            {strengths.length > 0 &&
                 <section className="feedback-section">
-
                     <h3>✅ Strengths</h3>
 
                     <ul>
-                        {strengths.map((item, index) => (
+                        {strengths.map((item, index) =>
                             <li key={index}>{item}</li>
-                        ))}
+                        )}
                     </ul>
-
                 </section>
-            )}
+            }
 
-            {issues.length > 0 && (
+            {issues.length > 0 &&
                 <section className="feedback-section">
 
                     <h3>⚠️ Issues Found</h3>
 
                     <ul>
-                        {issues.map((item, index) => (
+                        {issues.map((item, index) =>
                             <li key={index}>{item}</li>
-                        ))}
+                        )}
                     </ul>
 
                 </section>
-            )}
+            }
 
-            {hints.length > 0 && (
+            {hints.length > 0 &&
                 <section className="feedback-section">
 
                     <h3>💡 Hints</h3>
 
-                    {hints.map((hint, index) => (
+                    {hints.map((hint, index) =>
+
                         <div
                             className="hint-card"
                             key={index}
                         >
+
                             <span className="hint-number">
                                 Hint {index + 1}
                             </span>
@@ -120,118 +151,150 @@ const FeedbackTab = ({ feedback }) => {
                             <p>{hint}</p>
 
                         </div>
-                    ))}
+
+                    )}
 
                 </section>
-            )}
+            }
 
-            {thinkingQuestions.length > 0 && (
+            {thinkingQuestions.length > 0 &&
                 <section className="feedback-section">
 
                     <h3>🤔 Thinking Questions</h3>
 
                     <ul>
-                        {thinkingQuestions.map((item, index) => (
+                        {thinkingQuestions.map((item, index) =>
                             <li key={index}>{item}</li>
-                        ))}
+                        )}
                     </ul>
 
                 </section>
-            )}
+            }
 
             {(variableNaming.length > 0 ||
                 cleanCode.length > 0 ||
-                optimization.length > 0) && (
+                optimization.length > 0) &&
+
                 <section className="feedback-section">
 
                     <h3>🧹 Code Review</h3>
 
                     <div className="review-grid">
 
-                        {variableNaming.length > 0 && (
-                            <div>
+                        <div>
 
-                                <h4>Variable Naming</h4>
+                            <h4>Variable Naming</h4>
 
-                                <ul>
-                                    {variableNaming.map((item, index) => (
-                                        <li key={index}>{item}</li>
-                                    ))}
-                                </ul>
+                            <ul>
+                                {variableNaming.map((item, index) =>
+                                    <li key={index}>{item}</li>
+                                )}
+                            </ul>
 
-                            </div>
-                        )}
+                        </div>
 
-                        {cleanCode.length > 0 && (
-                            <div>
+                        <div>
 
-                                <h4>Clean Code</h4>
+                            <h4>Clean Code</h4>
 
-                                <ul>
-                                    {cleanCode.map((item, index) => (
-                                        <li key={index}>{item}</li>
-                                    ))}
-                                </ul>
+                            <ul>
+                                {cleanCode.map((item, index) =>
+                                    <li key={index}>{item}</li>
+                                )}
+                            </ul>
 
-                            </div>
-                        )}
+                        </div>
 
-                        {optimization.length > 0 && (
-                            <div>
+                        <div>
 
-                                <h4>Optimization</h4>
+                            <h4>Optimization</h4>
 
-                                <ul>
-                                    {optimization.map((item, index) => (
-                                        <li key={index}>{item}</li>
-                                    ))}
-                                </ul>
+                            <ul>
+                                {optimization.map((item, index) =>
+                                    <li key={index}>{item}</li>
+                                )}
+                            </ul>
 
-                            </div>
-                        )}
+                        </div>
 
                     </div>
 
                 </section>
-            )}
 
-            {conceptsToLearn.length > 0 && (
+            }
+
+            {conceptsToLearn.length > 0 &&
+
                 <section className="feedback-section">
 
                     <h3>📚 Concepts To Learn</h3>
 
                     <div className="chip-container">
 
-                        {conceptsToLearn.map((item, index) => (
+                        {conceptsToLearn.map((item, index) =>
+
                             <span
                                 className="chip"
                                 key={index}
                             >
                                 {item}
                             </span>
-                        ))}
+
+                        )}
 
                     </div>
 
                 </section>
-            )}
 
-            {edgeCasesToTest.length > 0 && (
+            }
+
+            {edgeCasesToTest.length > 0 &&
+
                 <section className="feedback-section">
 
                     <h3>🧪 Edge Cases To Test</h3>
 
                     <ul>
-                        {edgeCasesToTest.map((item, index) => (
+
+                        {edgeCasesToTest.map((item, index) =>
+
                             <li key={index}>{item}</li>
-                        ))}
+
+                        )}
+
                     </ul>
 
                 </section>
-            )}
+
+            }
 
         </div>
+        
     );
+
+        }
+
+    return <div className="feedback-state">
+
+                <h2>👨‍🏫 AI Coding Mentor</h2>
+
+                <p className="empty-title">
+                    No feedback generated
+                </p>
+
+                <p className="empty-description">
+                    Click the button below to analyze your solution and receive
+                    debugging hints, code review and optimization suggestions.
+                </p>
+
+                <button
+                    className="review-btn"
+                    onClick={onClickReviewCode}
+                >
+                    Review Code
+                </button>
+
+            </div>
 };
 
 export default FeedbackTab;

@@ -1,55 +1,98 @@
-import {useState, useRef} from "react";
+import { useState, useRef } from "react";
 
-import LeftPanel from "../../components/LeftPanel"
-import RightPanel from "../../components/RightPanel"
-import EDITOR_TEMPLATES from '../../constants/editorTemplates.jsx'
-import validateWorkspace from '../../components/ValidateWorkspace'
-import getFeedback from '../../services/feedback.api.jsx'
+import LeftPanel from "../../components/LeftPanel";
+import RightPanel from "../../components/RightPanel";
 
-import './index.css'
+import EDITOR_TEMPLATES from "../../constants/editorTemplates";
+import responseStatus from "../../constants/responseStatus";
 
-const WorkSpace = () =>{
+import validateWorkspace from "../../components/ValidateWorkspace";
+import getFeedback from "../../services/feedback.api";
+
+import "./index.css";
+
+const WorkSpace = () => {
     const [language, setLanguage] = useState("java");
-    const [feedback,setFeedback] = useState({})
-    const [code, setcode] = useState(
+
+    const [code, setCode] = useState(
         EDITOR_TEMPLATES.java
     );
 
-
-
-    const onChangeLanguage = (lang) =>{
-        setLanguage(lang)
-        setcode(EDITOR_TEMPLATES[lang])
-    }
-
     const [problemName, setProblemName] = useState("");
+
+    const [feedback, setFeedback] = useState(null);
+
+    const [selectedTab, setSelectedTab] = useState("feedback");
+
+    const [rightPanelStatus, setRightPanelStatus] = useState(
+        responseStatus.initial
+    );
+
     const [leftWidth, setLeftWidth] = useState(50);
-    const [selectedTab, setSelectedTab] = useState("feedback")
+
     const isDragging = useRef(false);
 
-    const callFeedbackApi = async () =>{
-        const feedback = await getFeedback({problemName, language, code})
-        console.log(feedback)
-        setFeedback(feedback)
-    }
+    const onChangeLanguage = language => {
+        setLanguage(language);
+        setCode(EDITOR_TEMPLATES[language]);
+    };
 
-    const onClickReviewCode  = ()=>{
-        console.log("btn")
-        const error = validateWorkspace({
+    const callFeedbackApi = async () => {
+        try {
+
+            setRightPanelStatus(responseStatus.inProgress);
+
+            const feedbackData = await getFeedback({
                 problemName,
                 language,
                 code,
             });
 
-        if (error) {
+            setFeedback(feedbackData);
 
-            alert(error);
+            setSelectedTab("feedback");
 
-            return;
+            setRightPanelStatus(responseStatus.success);
 
+        } catch (error) {
+
+            console.error(error);
+
+            setRightPanelStatus(responseStatus.failure);
         }
-        callFeedbackApi()
-    }
+    };
+
+    const onClickReviewCode = () => {
+
+        const error = validateWorkspace({
+            problemName,
+            language,
+            code,
+        });
+
+        if (error) {
+            alert(error);
+            return;
+        }
+
+        callFeedbackApi();
+    };
+
+    const onClickResetButton = () => {
+
+        setProblemName("");
+
+        setFeedback(null);
+
+        setCode(
+            EDITOR_TEMPLATES[language]
+        );
+
+        setRightPanelStatus(
+            responseStatus.initial
+        );
+    };
+
     const startDragging = () => {
         isDragging.current = true;
     };
@@ -59,42 +102,56 @@ const WorkSpace = () =>{
     };
 
     const handleMouseMove = event => {
+
         if (!isDragging.current) return;
 
-        const screenWidth = window.innerWidth;
+        const percentage =
+            (event.clientX / window.innerWidth) * 100;
 
-        let percentage = (event.clientX / screenWidth) * 100;
-
-        // Limits
-        if (percentage < 30) percentage = 30;
-        if (percentage > 70) percentage = 70;
-
-        setLeftWidth(percentage);
+        setLeftWidth(
+            Math.min(
+                70,
+                Math.max(30, percentage)
+            )
+        );
     };
-    return(
+
+    return (
         <div
             className="workSpace-container"
             onMouseMove={handleMouseMove}
             onMouseUp={stopDragging}
             onMouseLeave={stopDragging}
         >
-            <LeftPanel 
-            width={leftWidth}
-            code={code} 
-            setcode={setcode} 
-            language={language} 
-            onChangeLanguage={onChangeLanguage} 
-            setProblemName={setProblemName} 
-            onClickReviewCode={onClickReviewCode}/> 
+
+            <LeftPanel
+                width={leftWidth}
+                language={language}
+                code={code}
+                setcode={setCode}
+                problemName={problemName}
+                setProblemName={setProblemName}
+                onChangeLanguage={onChangeLanguage}
+                onClickReviewCode={onClickReviewCode}
+                onClickResetButton={onClickResetButton}
+            />
 
             <div
                 className="splitter"
                 onMouseDown={startDragging}
             />
-            
-            <RightPanel feedback={feedback} selectedTab={selectedTab} setSelectedTab={setSelectedTab} width={100 - leftWidth}/>
-        </div>
-    )
-}
 
-export default WorkSpace
+            <RightPanel
+                width={100 - leftWidth}
+                selectedTab={selectedTab}
+                setSelectedTab={setSelectedTab}
+                feedback={feedback}
+                rightPanelStatus={rightPanelStatus}
+                onClickReviewCode={onClickReviewCode}
+            />
+
+        </div>
+    );
+};
+
+export default WorkSpace;

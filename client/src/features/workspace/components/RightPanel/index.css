@@ -1,62 +1,110 @@
 .right-panel-main-container{
+   height:87vh;
+   display: flex;
+   flex-direction: column;
+   border-top-left-radius:12px;
+   border-bottom-left-radius:12px;
+   margin: 1px 0px;
+    background: #111827;
+    color: #f8fafc;
+}
+.workspace-right-panel-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    border-top-left-radius:12px;
+    padding:8px 24px;
+
+    background:#1e293b;
+
+    border-bottom:1px solid #334155;
+
+    color:white;
+
+    box-shadow:0 3px 10px rgba(0,0,0,0.05);
+}
+
+.header-title-container{
     display:flex;
     flex-direction:column;
-
-    height:85vh;
-
-    background:white;
-
-    border:2px solid black;
-
-    border-radius:8px;
-
-    overflow:hidden;
 }
-.workSpace-right-panel-header{
 
-    flex-shrink:0;
+.workspace-right-panel-header-heading{
+    margin:0;
 
-    height:60px;
+    font-size:24px;
+    font-weight:700;
 
+    letter-spacing:0.5px;
+}
+
+.header-subtitle{
+    margin-top:4px;
+
+    color:#64748b;
+
+    font-size:14px;
+}
+
+.workspace-right-panel-header-buttons{
     display:flex;
-
-    justify-content:space-between;
-
+    gap:10px;
     align-items:center;
-
-    padding:0 20px;
-
-    border-bottom:1px solid #dcdcdc;
-
-    background:white;
 }
-.workSpace-right-panel-header-heading{
-    font-weight: bold;
-    font-size:18px;
+
+.header-btn{
+    border:none;
+
+    background:#f1f5f9;
+
+    color:#475569;
+    padding:6px;
+    border-radius:10px;
+
+    font-size:15px;
+    font-weight:600;
+
+    cursor:pointer;
+
+    transition:all .25s ease;
 }
-.workSpace-right-pannel-header-buttons{
-    display:flex;
-    justify-content: space-around;
-    align-items: center;
+
+
+.active-tab{
+    background:#2563eb;
+    color:white;
+
+    box-shadow:0 5px 12px rgba(37,99,235,.25);
+}
+
+.save-btn{
+    border:none;
+
+    background:#10b981;
+
+    color:white;
+    padding:6px;
+    border-radius:10px;
+
+    font-size:15px;
+    font-weight:600;
+
+    cursor:pointer;
+
+    transition:.25s;
+}
+
+.save-btn:hover{
+    background:#059669;
+    transform:translateY(-2px);
 }
 .workSpace-right-panel-body{
-
-    flex:1;
-
+    flex-grow:1;
     overflow-y:auto;
-
-    overflow-x:hidden;
-
-    padding:15px;
+    scrollbar-width: none;
+    border-bottom-left-radius:12px;
 }
-.workSpace-right-panel-footer{
-    height: 8%;
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    padding:0px 10px;
-    border-top:1px solid black;
-}
+
 .workSpace-right-pannel-header-buttons{
 
     display:flex;

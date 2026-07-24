@@ -1,3 +1,46 @@
-.workSpace-footer-container{
-    margin:10px;
+.workspace-footer-container{
+    width:100%;
+    display:flex;
+    justify-content: space-between;
+    align-items:center;
+    background-color:#0f172a;
+    color:#f8fafc;
+    border-top:1px solid #1e293b;
+    padding:12px 20px;
+}
+
+
+
+.footer-logo{
+    margin:0px;
+    font-size:20px;
+    font-weight:700;
+    color:#60a5fa;
+}
+
+.footer-text{
+    color:#94a3b8;
+    font-size:16px;
+    margin:0px;
+    font-weight:bold;
+}
+
+
+.floating-heart{
+    display:inline-block;
+    font-size:16px;
+    animation:heartFloat 2s ease-in-out infinite;
+    margin:0px
+}
+
+@keyframes heartFloat{
+    0%{
+        transform:translateY(0) scale(1);
+    }
+    50%{
+        transform:translateY(-8px) scale(1.10);
+    }
+    100%{
+        transform:translateY(0) scale(1);
+    }
 }

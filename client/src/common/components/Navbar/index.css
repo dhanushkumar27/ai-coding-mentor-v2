@@ -1,3 +1,158 @@
-.navbar-main-container{
-    margin:10px;
+* {
+  box-sizing: border-box;
+}
+
+.navbar-container {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom:1px solid #1e293b;
+  padding:8px 24px;
+  background-color:#0f172a;
+  color:#f8fafc;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.brand-logo{
+
+    display:flex;
+
+    align-items:center;
+
+    text-decoration:none;
+
+    font-size:30px;
+
+    font-weight:800;
+
+    letter-spacing:1px;
+
+    transition:.35s ease;
+
+    user-select:none;
+
+}
+
+.brand-gradient{
+
+    background:linear-gradient(
+        135deg,
+        #60a5fa,
+        #8b5cf6,
+        #ec4899
+    );
+
+    -webkit-background-clip:text;
+
+    -webkit-text-fill-color:transparent;
+
+    background-clip:text;
+
+}
+
+.brand-letter{
+
+    display:inline-block;
+
+    margin-left:4px;
+
+    color:white;
+
+    animation:floatLogo 3s ease-in-out infinite;
+
+    transition:.8s;
+
+}
+
+.brand-logo:hover .brand-letter{
+
+    transform:rotate(360deg) scale(1.2);
+
+}
+
+@keyframes floatLogo{
+
+0%,100%{
+
+transform:translateY(0);
+
+text-shadow:0 0 8px #8b5cf6;
+
+}
+
+50%{
+
+transform:translateY(-5px);
+
+text-shadow:
+0 0 10px #3b82f6,
+0 0 25px #8b5cf6;
+
+}
+
+}
+
+.brand-logo:hover{
+
+    transform:scale(1.05);
+
+    filter:drop-shadow(0 0 12px rgba(99,102,241,.45));
+
+}
+
+.brand-logo:active{
+
+    transform:scale(.98);
+
+}
+.navbar-sections-container {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+
+
+.nav-link {
+  text-decoration: none;
+}
+
+.nav-link-span{
+   font-size: 18px;
+  font-weight: 500;
+  color: white;
+  transition: 0.25s ease;
+}
+.nav-link-span:hover {
+  border-bottom: 2px solid white;
+}
+
+.logout-button {
+  border: none;
+  outline: none;
+  cursor: pointer;
+
+  background-color: #2563eb;
+  color: white;
+
+  padding: 10px 22px;
+
+  border-radius: 8px;
+
+  font-size: 15px;
+  font-weight: 600;
+
+  transition: 0.25s ease;
+}
+
+.logout-button:hover {
+  background-color: #1d4ed8;
+  transform: translateY(-2px);
+}
+
+.logout-button:active {
+  transform: translateY(0);
 }

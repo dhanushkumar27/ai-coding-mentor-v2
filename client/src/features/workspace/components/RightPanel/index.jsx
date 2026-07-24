@@ -1,84 +1,101 @@
-
-
-import ExplanationTab from '../ExplanationTab'
-import SolutionTab from '../SolutionTab'
-import FeedbackTab from '../FeedbackTab'
-
-
-import './index.css'
+import FeedbackTab from "../FeedbackTab";
+import SolutionTab from "../SolutionTab";
+import ExplanationTab from "../ExplanationTab";
 
 
 
-const RightPanel = (props) =>{
-    
-    const {width, selectedTab, setSelectedTab, feedback} = props
+import "./index.css";
 
-    const TABS={
+const TABS = [
+    {
+        id: "feedback",
+        label: "Feedback",
+    },
+    {
+        id: "explanation",
+        label: "Explanation",
+    },
+    {
+        id: "solution",
+        label: "Solution",
+    },
+];
 
-    feedback:<FeedbackTab  feedback={feedback}/>,
+const RightPanel = ({
+    width,
+    selectedTab,
+    setSelectedTab,
+    feedback,
+    rightPanelStatus,
+    onClickReviewCode,
+}) => {
 
-    solution:<SolutionTab/>,
+    const renderContent = () => {
 
-    explanation:<ExplanationTab/>
+        switch (selectedTab) {
 
-    }
-  
-    
-    return(
+            case "feedback":
+                return (
+                    <FeedbackTab
+                        feedback={feedback}
+                        rightPanelStatus={rightPanelStatus}
+                        onClickReviewCode={onClickReviewCode}
+                    />
+                );
+
+            case "solution":
+                return (
+                    <SolutionTab />
+                );
+
+            case "explanation":
+                return (
+                    <ExplanationTab />
+                );
+
+            default:
+                return null;
+        }
+    };
+
+    return (
         <div
-    className="right-panel-main-container"
-    style={{ width: `${width}%` }}
->
-    <div className="workSpace-right-panel-header">
+            className="right-panel-main-container"
+            style={{ width: `${width}%` }}
+        >
 
-        <h1 className="workSpace-right-panel-header-heading">
-            AI Mentor
-        </h1>
+             <div className="workspace-right-panel-header">
+                <div className="header-title-container">
+                    <h1 className="workspace-right-panel-header-heading">
+                    AI Mentor
+                    </h1>
 
-        <div className="workSpace-right-pannel-header-buttons">
+                </div>
 
-            <button
-                className={`button ${
-                    selectedTab === "feedback" ? "active-tab" : ""
-                }`}
-                onClick={() => setSelectedTab("feedback")}
-            >
-                Feedback
-            </button>
+                <div className="workspace-right-panel-header-buttons">
+                    {TABS.map(tab => (
+                    <button
+                        key={tab.id}
+                        className={`header-btn ${
+                        selectedTab === tab.id ? "active-tab" : ""
+                        }`}
+                        onClick={() => setSelectedTab(tab.id)}
+                    >
+                        {tab.label}
+                    </button>
+                    ))}
 
-            <button
-                className={`button ${
-                    selectedTab === "explanation" ? "active-tab" : ""
-                }`}
-                onClick={() => setSelectedTab("explanation")}
-            >
-                Explanation
-            </button>
+                    <button className="save-btn">
+                    💾 Save
+                    </button>
+                </div>
+            </div>
 
-            <button
-                className={`button ${
-                    selectedTab === "solution" ? "active-tab" : ""
-                }`}
-                onClick={() => setSelectedTab("solution")}
-            >
-                Solution
-            </button>
-
-            <button className="button">
-                Save
-            </button>
-
+            <div className="workSpace-right-panel-body">
+                {renderContent()}
+            </div>
         </div>
+    );
+};
 
-    </div>
-
-    <div className="workSpace-right-panel-body">
-        {TABS[selectedTab]}
-    </div>
-
-</div>
-        
-    )
-}
-
-export default RightPanel
+export default RightPanel;

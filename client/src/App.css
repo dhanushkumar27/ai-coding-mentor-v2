@@ -1,15 +1,14 @@
 
-
 .page-container{
-    min-height:100vh;
+    height:100vh;
+    max-height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-  
 }
 
 .body-container{
     flex-grow:1;
     display: flex;
-    margin:10px;
+    background-color: white;
 }

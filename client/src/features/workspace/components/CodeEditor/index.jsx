@@ -10,8 +10,8 @@ const CodeEditor = (props) => {
                 theme="vs-dark"
                 value={code}
                 onChange={(value) => setcode(value || "")}
-                height="500px"
-                width="90%"
+                height="550px"
+                width="100%"
                 options={{
                  fontSize: 16,
                 minimap: {
