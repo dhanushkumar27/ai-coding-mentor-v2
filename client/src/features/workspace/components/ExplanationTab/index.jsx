@@ -1,299 +1,272 @@
 import responseStatus from "../../constants/responseStatus";
 
-
 import "./index.css";
 
 const ExplanationTab = ({
-    feedback,
-   rightPanelStatus,
-    onClickReviewCode,
+    explanation,
+    rightPanelExplanationStatus,
+    onClickGetExplanation,
 }) => {
 
-    // Loading State
-    if (rightPanelStatus === responseStatus.inProgress) {
+    if (rightPanelExplanationStatus === responseStatus.inProgress) {
+
         return (
             <div className="feedback-state">
 
                 <div className="loader"></div>
 
-                <h2>Reviewing your code...</h2>
+                <h2>Generating Explanation...</h2>
 
                 <p>
-                    AI Mentor is analyzing your solution.
+                    AI Mentor is preparing a detailed explanation.
                 </p>
 
             </div>
         );
     }
 
-    // Empty State
-    if (rightPanelStatus === responseStatus.failure) {
+    if (rightPanelExplanationStatus === responseStatus.failure) {
+
         return (
             <div className="feedback-state">
-                <h1>Try Again</h1>
+
+                <h2>Unable to generate explanation.</h2>
+
                 <button
-                        className="review-btn"
-                        onClick={onClickReviewCode}
-                    >
-                        Review Code
+                    className="review-btn"
+                    onClick={onClickGetExplanation}
+                >
+                    Try Again
                 </button>
+
             </div>
         );
     }
 
-    if(rightPanelStatus === responseStatus.success){
-    const {
-        identifiedProblem = "Unknown Problem",
+    if (!explanation) {
 
-        encouragement = {},
+        return (
 
-        analysis = {},
+            <div className="feedback-state">
 
-        strengths = [],
-
-        issues = [],
-
-        hints = [],
-
-        thinkingQuestions = [],
-
-        codeReview = {},
-
-        conceptsToLearn = [],
-
-        edgeCasesToTest = [],
-    } = feedback;
-
-    const {
-        emoji = "💡",
-        message = "Feedback Generated",
-    } = encouragement;
-
-    const {
-        status = "Unknown",
-    } = analysis;
-
-    const {
-        variableNaming = [],
-        cleanCode = [],
-        optimization = [],
-    } = codeReview;
-
-    return (
-        <div className="feedback-container">
-
-            <div className="feedback-header">
-
-                <h2>
-                    {emoji} {message}
-                </h2>
-
-                <p className="problem-name">
-                    <strong>Detected Problem:</strong>{" "}
-                    {identifiedProblem}
-                </p>
-
-                <span
-                    className={`status ${
-                        status.toLowerCase() === "correct"
-                            ? "correct"
-                            : "incorrect"
-                    }`}
-                >
-                    {status}
-                </span>
-
-            </div>
-
-            
-            {strengths.length > 0 &&
-                <section className="feedback-section">
-                    <h3>✅ Strengths</h3>
-
-                    <ul>
-                        {strengths.map((item, index) =>
-                            <li key={index}>{item}</li>
-                        )}
-                    </ul>
-                </section>
-            }
-
-            {issues.length > 0 &&
-                <section className="feedback-section">
-
-                    <h3>⚠️ Issues Found</h3>
-
-                    <ul>
-                        {issues.map((item, index) =>
-                            <li key={index}>{item}</li>
-                        )}
-                    </ul>
-
-                </section>
-            }
-
-            {hints.length > 0 &&
-                <section className="feedback-section">
-
-                    <h3>💡 Hints</h3>
-
-                    {hints.map((hint, index) =>
-
-                        <div
-                            className="hint-card"
-                            key={index}
-                        >
-
-                            <span className="hint-number">
-                                Hint {index + 1}
-                            </span>
-
-                            <p>{hint}</p>
-
-                        </div>
-
-                    )}
-
-                </section>
-            }
-
-            {thinkingQuestions.length > 0 &&
-                <section className="feedback-section">
-
-                    <h3>🤔 Thinking Questions</h3>
-
-                    <ul>
-                        {thinkingQuestions.map((item, index) =>
-                            <li key={index}>{item}</li>
-                        )}
-                    </ul>
-
-                </section>
-            }
-
-            {(variableNaming.length > 0 ||
-                cleanCode.length > 0 ||
-                optimization.length > 0) &&
-
-                <section className="feedback-section">
-
-                    <h3>🧹 Code Review</h3>
-
-                    <div className="review-grid">
-
-                        <div>
-
-                            <h4>Variable Naming</h4>
-
-                            <ul>
-                                {variableNaming.map((item, index) =>
-                                    <li key={index}>{item}</li>
-                                )}
-                            </ul>
-
-                        </div>
-
-                        <div>
-
-                            <h4>Clean Code</h4>
-
-                            <ul>
-                                {cleanCode.map((item, index) =>
-                                    <li key={index}>{item}</li>
-                                )}
-                            </ul>
-
-                        </div>
-
-                        <div>
-
-                            <h4>Optimization</h4>
-
-                            <ul>
-                                {optimization.map((item, index) =>
-                                    <li key={index}>{item}</li>
-                                )}
-                            </ul>
-
-                        </div>
-
-                    </div>
-
-                </section>
-
-            }
-
-            {conceptsToLearn.length > 0 &&
-
-                <section className="feedback-section">
-
-                    <h3>📚 Concepts To Learn</h3>
-
-                    <div className="chip-container">
-
-                        {conceptsToLearn.map((item, index) =>
-
-                            <span
-                                className="chip"
-                                key={index}
-                            >
-                                {item}
-                            </span>
-
-                        )}
-
-                    </div>
-
-                </section>
-
-            }
-
-            {edgeCasesToTest.length > 0 &&
-
-                <section className="feedback-section">
-
-                    <h3>🧪 Edge Cases To Test</h3>
-
-                    <ul>
-
-                        {edgeCasesToTest.map((item, index) =>
-
-                            <li key={index}>{item}</li>
-
-                        )}
-
-                    </ul>
-
-                </section>
-
-            }
-
-        </div>
-        
-    );
-
-        }
-
-    return <div className="feedback-state">
-
-                <h2>👨‍🏫 AI Coding Mentor</h2>
+                <h2>📖 AI Explanation</h2>
 
                 <p className="empty-title">
-                    No Explanation generated
+                    No explanation generated
                 </p>
 
                 <p className="empty-description">
-                    Click the button below to get Explanation for your code/Problem.
+                    Understand the intuition, algorithm flow,
+                    concepts and interview insights behind the problem.
                 </p>
 
                 <button
                     className="review-btn"
-                    onClick={onClickReviewCode}
+                    onClick={onClickGetExplanation}
                 >
-                    Get Explanation
+                    Generate Explanation
                 </button>
 
             </div>
+
+        );
+    }
+
+    const {
+        problem = {},
+        explanation: details = {},
+    } = explanation;
+
+    return (
+
+        <div className="feedback-container">
+
+            <div className="feedback-header">
+
+                <h2>📖 AI Explanation</h2>
+
+                <p className="problem-name">
+
+                    <strong>{problem.name}</strong>
+
+                </p>
+
+                <div className="solution-tags">
+
+                    <span>{problem.platform}</span>
+
+                    {
+                        problem.problemNumber &&
+                        <span>{problem.problemNumber}</span>
+                    }
+
+                    <span>{problem.difficulty}</span>
+
+                </div>
+
+            </div>
+
+            <Section
+                title="📝 Overview"
+                text={details.overview}
+            />
+
+            <Section
+                title="🧠 Intuition"
+                text={details.intuition}
+            />
+
+            <ListSection
+                title="⚙️ Approach"
+                items={details.approach}
+            />
+
+            <ListSection
+                title="▶️ Algorithm Flow"
+                items={details.algorithmFlow}
+                ordered
+            />
+
+            <ListSection
+                title="🧪 Dry Run"
+                items={details.dryRun}
+                ordered
+            />
+
+            <ChipSection
+                title="📚 Key Concepts"
+                items={details.keyConcepts}
+            />
+
+            <ListSection
+                title="💡 Important Observations"
+                items={details.importantObservations}
+            />
+
+            <ListSection
+                title="❌ Common Mistakes"
+                items={details.commonMistakes}
+            />
+
+            <ListSection
+                title="🎯 Interview Tips"
+                items={details.interviewTips}
+            />
+
+        </div>
+
+    );
+};
+
+const Section = ({ title, text }) => {
+
+    if (!text) return null;
+
+    return (
+
+        <section className="feedback-section">
+
+            <h3>{title}</h3>
+
+            <p className="paragraph">
+                {text}
+            </p>
+
+        </section>
+
+    );
+
+};
+
+const ListSection = ({
+    title,
+    items,
+    ordered = false,
+}) => {
+
+    if (!items?.length) return null;
+
+    return (
+
+        <section className="feedback-section">
+
+            <h3>{title}</h3>
+
+            {
+                ordered ?
+
+                    <ol>
+
+                        {
+                            items.map((item, index) => (
+
+                                <li key={index}>
+                                    {item}
+                                </li>
+
+                            ))
+                        }
+
+                    </ol>
+
+                    :
+
+                    <ul>
+
+                        {
+                            items.map((item, index) => (
+
+                                <li key={index}>
+                                    {item}
+                                </li>
+
+                            ))
+                        }
+
+                    </ul>
+
+            }
+
+        </section>
+
+    );
+
+};
+
+const ChipSection = ({
+    title,
+    items,
+}) => {
+
+    if (!items?.length) return null;
+
+    return (
+
+        <section className="feedback-section">
+
+            <h3>{title}</h3>
+
+            <div className="chip-container">
+
+                {
+                    items.map((item, index) => (
+
+                        <span
+                            key={index}
+                            className="chip"
+                        >
+                            {item}
+                        </span>
+
+                    ))
+                }
+
+            </div>
+
+        </section>
+
+    );
+
 };
 
 export default ExplanationTab;

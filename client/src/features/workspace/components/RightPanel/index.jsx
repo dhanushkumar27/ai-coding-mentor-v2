@@ -26,11 +26,15 @@ const RightPanel = ({
     selectedTab,
     setSelectedTab,
     feedback,
+    explanation,
     solution,
     rightPanelFeedbackStatus,
+    rightPanelExplanationStatus,
     rightPanelSolutionStatus,
     onClickReviewCode,
+    onClickGetExplanation,
     onClickGetSolution,
+
 }) => {
 
     const renderContent = () => {
@@ -51,12 +55,16 @@ const RightPanel = ({
                     <SolutionTab 
                     solution={solution}
                     rightPanelSolutionStatus={rightPanelSolutionStatus}
-                     onClickGetSolution={onClickGetSolution}/>
+                    onClickGetSolution={onClickGetSolution}/>
                 );
 
             case "explanation":
                 return (
-                    <ExplanationTab />
+                    <ExplanationTab 
+                    explanation={explanation}
+                    rightPanelExplanationStatus={rightPanelExplanationStatus}
+                    onClickGetExplanation={onClickGetExplanation}
+                    />
                 );
 
             default:

@@ -9,6 +9,7 @@ import responseStatus from "../../constants/responseStatus";
 import validateWorkspace from "../../components/ValidateWorkspace";
 import getFeedback from "../../services/feedback.api";
 import getSolution from '../../services/solution.api'
+import getExplanation from '../../services/explanation.api'
 
 import "./index.css";
 
@@ -23,6 +24,7 @@ const WorkSpace = () => {
 
     const [feedback, setFeedback] = useState(null);
     const [solution, setSolution] = useState(null)
+    const [explanation, setExplanation] = useState(null)
 
     const [selectedTab, setSelectedTab] = useState("feedback");
 
@@ -30,6 +32,9 @@ const WorkSpace = () => {
         responseStatus.initial
     );
      const [rightPanelSolutionStatus, setRightPanelSolutionStatus] = useState(
+        responseStatus.initial
+    );
+    const [rightPanelExplanationStatus, setRightPanelExplanationStatus] = useState(
         responseStatus.initial
     );
 
@@ -67,22 +72,6 @@ const WorkSpace = () => {
         }
     };
 
-    const onClickReviewCode = () => {
-
-        const error = validateWorkspace({
-            problemName,
-            language,
-            code,
-        });
-
-        if (error) {
-            alert(error);
-            return;
-        }
-
-        callFeedbackApi();
-    };
-
     const callSolutionApi = async () => {
         try {
 
@@ -109,6 +98,48 @@ const WorkSpace = () => {
         }
     };
 
+    const callExplanationApi = async () => {
+        try {
+
+            setRightPanelExplanationStatus(responseStatus.inProgress);
+
+            const explanationData = await getExplanation({
+                language,
+                problemName, // or your detected problem object
+                code,
+            });
+
+            setExplanation(explanationData);
+
+            setSelectedTab("explanation");
+
+            setRightPanelExplanationStatus(responseStatus.success);
+
+        } catch (error) {
+
+            console.error(error);
+
+            setRightPanelExplanationStatus(responseStatus.failure);
+
+        }
+    };
+
+    const onClickReviewCode = () => {
+
+        const error = validateWorkspace({
+            problemName,
+            language,
+            code,
+        });
+
+        if (error) {
+            alert(error);
+            return;
+        }
+
+        callFeedbackApi();
+    };
+
     const onClickGetSolution = () => {
 
         const error = validateWorkspace({
@@ -125,12 +156,30 @@ const WorkSpace = () => {
         callSolutionApi();
     };
 
+    const onClickGetExplanation = () => {
+
+        const error = validateWorkspace({
+            problemName,
+            language,
+            code,
+        });
+
+        if (error) {
+            alert(error);
+            return;
+        }
+
+        callExplanationApi();
+    };
+
+
     const onClickResetButton = () => {
 
         setProblemName("");
 
         setFeedback(null);
         setSolution(null);
+        setExplanation(null);
         setCode(
             EDITOR_TEMPLATES[language]
         );
@@ -139,6 +188,9 @@ const WorkSpace = () => {
             responseStatus.initial
         );
         setRightPanelSolutionStatus(
+            responseStatus.initial
+        );
+        setRightPanelExplanationStatus(
             responseStatus.initial
         );
     };
@@ -196,11 +248,14 @@ const WorkSpace = () => {
                 selectedTab={selectedTab}
                 setSelectedTab={setSelectedTab}
                 feedback={feedback}
+                explanation={explanation}
                 solution={solution}
-                onClickGetSolution={onClickGetSolution}
                 rightPanelFeedbackStatus={rightPanelFeedbackStatus}
+                rightPanelExplanationStatus={rightPanelExplanationStatus}
                 rightPanelSolutionStatus={rightPanelSolutionStatus}
                 onClickReviewCode={onClickReviewCode}
+                onClickGetExplanation={onClickGetExplanation}
+                onClickGetSolution={onClickGetSolution}
             />
 
         </div>

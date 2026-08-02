@@ -1,4 +1,4 @@
-const API_URL = `http://localhost:5000/api/solution`;
+const API_URL = "http://localhost:5000/api/solution";
 
 const getSolution = async (props) => {
     const {

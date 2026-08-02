@@ -1,0 +1,48 @@
+.paragraph{
+    color:#e5e7eb;
+    line-height:1.9;
+    font-size:16px;
+}
+
+.feedback-section ol{
+    padding-left:22px;
+}
+
+.feedback-section ol li{
+    margin-bottom:12px;
+    line-height:1.9;
+    color:#e5e7eb;
+}
+
+.solution-tags{
+    display:flex;
+    gap:12px;
+    flex-wrap:wrap;
+    margin-top:18px;
+}
+
+.solution-tags span{
+    padding:8px 16px;
+    background:rgba(255,255,255,.18);
+    border-radius:999px;
+    font-size:14px;
+    font-weight:600;
+}
+
+.feedback-section{
+    animation:fadeUp .35s ease;
+}
+
+@keyframes fadeUp{
+
+    from{
+        opacity:0;
+        transform:translateY(12px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+
+}

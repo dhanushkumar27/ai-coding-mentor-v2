@@ -4,6 +4,7 @@ const cors = require("cors");
 const analyzeRouter = require("./routes/analysis.route");
 const feedbackRouter = require("./routes/feedback.route");
 const solutionRouter = require("./routes/solution.route");
+const explanationRouter = require("./routes/explanation.route")
 
 const app = express();
 
@@ -23,6 +24,7 @@ app.get("/", (req, res) => {
 app.use("/api/analyze", analyzeRouter);
 app.use("/api/feedback", feedbackRouter);
 app.use("/api/solution", solutionRouter);
+app.use("/api/explanation", explanationRouter);
 
 /* 404 Handler */
 app.use((req, res) => {
