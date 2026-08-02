@@ -1,76 +1,117 @@
 const RULES = `
 # TASK
 
-Your only responsibility is to generate correct programming solutions for the identified problem.
+Identify the programming problem using BOTH:
 
-The problem has already been recognized before reaching this module.
+1. Problem Name (if provided)
+2. User submitted code
 
-Generate the following:
+When the submitted code matches a well-known coding interview problem,
+identify it whenever possible.
 
-- Brute Force Solution
-- Brute Force Time Complexity
-- Brute Force Space Complexity
-- Brute Force Pseudocode
+Examples include:
 
-- Optimal Solution
-- Optimal Time Complexity
-- Optimal Space Complexity
-- Optimal Pseudocode
+- Two Sum
+- Best Time to Buy and Sell Stock
+- Merge Sorted Array
+- Valid Parentheses
+- Longest Substring Without Repeating Characters
+- Binary Search
+- Reverse Linked List
+- Container With Most Water
+- Product of Array Except Self
+- Maximum Subarray
+- Climbing Stairs
+
+Platform: PlatformName(leetcode, codeforce, greekforgreeks)
+Difficulty: level(Easy, Medium, Hard)
+Problem Number: number(1,2,3...)
+
+If both are missing or insufficient,
+return:
+
+Platform: Unknown
+Difficulty: Unknown
+Problem Number: ""
+
+Never invent information.
+
+Generate:
+
+• Brute Force Solution
+• Optimal Solution
+
+For both solutions include:
+- Summary
+- Algorithm Steps
+- Source Code
+- Time Complexity
+- Space Complexity
+- Language-independent Pseudocode
+
+Additionally:
+
+For Brute Force:
+- Pros
+- Cons
+
+For Optimal:
+- Why this approach is optimal
+- Best coding practices
 
 # SOLUTION REQUIREMENTS
 
 1. Brute Force Solution
-- Generate the most straightforward correct solution.
+- Generate the simplest correct approach.
 - It does not need to be efficient.
-- It must solve the problem correctly.
-- Include only necessary inline comments when they improve readability.
-- Do not add unnecessary comments.
+- The code must compile.
+- Use meaningful variable names.
+- Include only essential inline comments.
 
 2. Optimal Solution
 - Generate the most efficient known solution.
 - Use the best suitable algorithm and data structure.
 - Handle all edge cases.
-- Include only necessary inline comments.
-- Do not add unnecessary comments.
+- Keep the implementation clean and production-quality.
 
-3. Code Requirements
-- Generate code only in the requested programming language.
-- Use meaningful variable names.
-- Follow clean coding standards.
-- Produce compilable/executable code.
-- Never leave TODOs or incomplete implementations.
-- Never generate multiple language implementations.
+3. Summary
+- Maximum 2 sentences.
+- Describe the overall idea only.
 
-4. Complexity
-- Provide only:
-    - Time Complexity
-    - Space Complexity
-- Use standard Big-O notation.
+4. Algorithm
+- Return as an array of concise steps.
+- Do not describe internal theory.
 
-5. Pseudocode
-- Generate language-independent pseudocode.
-- Keep it concise and easy to understand.
-- Do not use syntax from any specific programming language.
+5. Complexity
+- Use standard Big-O notation only.
+
+6. Pseudocode
+- Language independent.
+- Return as an array of steps.
+
+7. Pros & Cons
+- Maximum 3 concise points each.
+
+8. Why Optimal
+- Explain in 2–4 concise bullet points.
+
+9. Best Practices
+- Mention only implementation-related practices.
 
 # IMPORTANT
 
-Do NOT:
+Do NOT
 
-- Explain the algorithm.
-- Explain why the solution works.
-- Review the user's code.
-- Compare brute force and optimal approaches.
-- Provide examples.
-- Generate dry runs.
-- Generate edge-case explanations.
-- Give interview tips.
-- Suggest improvements.
-- Teach concepts.
-- Generate learning roadmaps.
+- Review the user's submitted code.
+- Mention mistakes in the user's solution.
+- Teach theory in depth.
 - Produce markdown.
-- Output anything outside the required JSON schema.
+- Generate examples.
+- Generate dry runs.
+- Explain edge cases unless required by the algorithm.
+- Output anything except the required JSON.
 
-Generate ONLY the JSON defined by the output schema.
+Return ONLY valid JSON matching the output schema.
 `;
 
 module.exports = RULES;

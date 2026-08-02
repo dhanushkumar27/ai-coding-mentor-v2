@@ -8,6 +8,7 @@ import responseStatus from "../../constants/responseStatus";
 
 import validateWorkspace from "../../components/ValidateWorkspace";
 import getFeedback from "../../services/feedback.api";
+import getSolution from '../../services/solution.api'
 
 import "./index.css";
 
@@ -21,10 +22,14 @@ const WorkSpace = () => {
     const [problemName, setProblemName] = useState("");
 
     const [feedback, setFeedback] = useState(null);
+    const [solution, setSolution] = useState(null)
 
     const [selectedTab, setSelectedTab] = useState("feedback");
 
-    const [rightPanelStatus, setRightPanelStatus] = useState(
+    const [rightPanelFeedbackStatus, setRightPanelFeedbackStatus] = useState(
+        responseStatus.initial
+    );
+     const [rightPanelSolutionStatus, setRightPanelSolutionStatus] = useState(
         responseStatus.initial
     );
 
@@ -40,7 +45,7 @@ const WorkSpace = () => {
     const callFeedbackApi = async () => {
         try {
 
-            setRightPanelStatus(responseStatus.inProgress);
+            setRightPanelFeedbackStatus(responseStatus.inProgress);
 
             const feedbackData = await getFeedback({
                 problemName,
@@ -52,13 +57,13 @@ const WorkSpace = () => {
 
             setSelectedTab("feedback");
 
-            setRightPanelStatus(responseStatus.success);
+            setRightPanelFeedbackStatus(responseStatus.success);
 
         } catch (error) {
 
             console.error(error);
 
-            setRightPanelStatus(responseStatus.failure);
+            setRightPanelFeedbackStatus(responseStatus.failure);
         }
     };
 
@@ -78,17 +83,62 @@ const WorkSpace = () => {
         callFeedbackApi();
     };
 
+    const callSolutionApi = async () => {
+        try {
+
+            setRightPanelSolutionStatus(responseStatus.inProgress);
+
+            const solutionData = await getSolution({
+                language,
+                problemName, // or your detected problem object
+                code,
+            });
+
+            setSolution(solutionData);
+
+            setSelectedTab("solution");
+
+            setRightPanelSolutionStatus(responseStatus.success);
+
+        } catch (error) {
+
+            console.error(error);
+
+            setRightPanelSolutionStatus(responseStatus.failure);
+
+        }
+    };
+
+    const onClickGetSolution = () => {
+
+        const error = validateWorkspace({
+            problemName,
+            language,
+            code,
+        });
+
+        if (error) {
+            alert(error);
+            return;
+        }
+
+        callSolutionApi();
+    };
+
     const onClickResetButton = () => {
 
         setProblemName("");
 
         setFeedback(null);
-
+        setSolution(null);
         setCode(
             EDITOR_TEMPLATES[language]
         );
 
-        setRightPanelStatus(
+        setRightPanelFeedbackStatus(
+            responseStatus.initial
+        );
+        setRightPanelSolutionStatus(
             responseStatus.initial
         );
     };
@@ -146,7 +196,10 @@ const WorkSpace = () => {
                 selectedTab={selectedTab}
                 setSelectedTab={setSelectedTab}
                 feedback={feedback}
-                rightPanelStatus={rightPanelStatus}
+                solution={solution}
+                onClickGetSolution={onClickGetSolution}
+                rightPanelFeedbackStatus={rightPanelFeedbackStatus}
+                rightPanelSolutionStatus={rightPanelSolutionStatus}
                 onClickReviewCode={onClickReviewCode}
             />
 

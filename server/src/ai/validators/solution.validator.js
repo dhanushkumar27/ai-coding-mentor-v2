@@ -2,6 +2,7 @@ const {
     requireFields,
     requireObject,
     requireString,
+    requireArray,
 } = require("../helpers/validation.helper");
 
 const validateSolution = (data) => {
@@ -13,45 +14,58 @@ const validateSolution = (data) => {
         "solutions",
     ]);
 
-    requireObject(data, "problem");
+    validateProblem(data.problem);
 
-    requireFields(data.problem, [
+    validateSolutionType(
+        data.solutions.bruteForce,
+        true
+    );
+
+    validateSolutionType(
+        data.solutions.optimal,
+        false
+    );
+
+    return data;
+};
+
+const validateProblem = (problem) => {
+
+    requireObject({ problem }, "problem");
+
+    requireFields(problem, [
         "name",
         "platform",
         "problemNumber",
         "difficulty",
     ]);
 
-    requireString(data.problem, "name");
-    requireString(data.problem, "platform");
-    requireString(data.problem, "problemNumber");
-    requireString(data.problem, "difficulty");
-
-    requireObject(data, "solutions");
-
-    requireFields(data.solutions, [
-        "bruteForce",
-        "optimal",
-    ]);
-
-    validateSolutionType(data.solutions.bruteForce, "bruteForce");
-    validateSolutionType(data.solutions.optimal, "optimal");
-
-    return data;
+    requireString(problem, "name");
+    requireString(problem, "platform");
+    requireString(problem, "problemNumber");
+    requireString(problem, "difficulty");
 };
 
-const validateSolutionType = (solution, fieldName) => {
+const validateSolutionType = (
+    solution,
+    isBruteForce
+) => {
 
     requireObject({ solution }, "solution");
 
     requireFields(solution, [
+        "summary",
         "code",
+        "algorithm",
         "complexity",
         "pseudoCode",
     ]);
 
+    requireString(solution, "summary");
     requireString(solution, "code");
-    requireString(solution, "pseudoCode");
+
+    requireArray(solution, "algorithm");
+    requireArray(solution, "pseudoCode");
 
     requireObject(solution, "complexity");
 
@@ -62,6 +76,28 @@ const validateSolutionType = (solution, fieldName) => {
 
     requireString(solution.complexity, "time");
     requireString(solution.complexity, "space");
+
+    if (isBruteForce) {
+
+        requireFields(solution, [
+            "pros",
+            "cons",
+        ]);
+
+        requireArray(solution, "pros");
+        requireArray(solution, "cons");
+
+    } else {
+
+        requireFields(solution, [
+            "whyOptimal",
+            "bestPractices",
+        ]);
+
+        requireArray(solution, "whyOptimal");
+        requireArray(solution, "bestPractices");
+
+    }
 };
 
 module.exports = {

@@ -1,8 +1,5 @@
 const buildSolutionPrompt = require("../ai/prompts/solution/solution.prompt");
 
-console.log("buildSolutionPrompt =", buildSolutionPrompt);
-console.log("typeof =", typeof buildSolutionPrompt);
-
 const { generateContent } = require("../ai/providers/gemini.provider");
 
 const { parseJSON } = require("../ai/parsers/response.parser");
@@ -17,18 +14,23 @@ const generateSolution = async ({
     userInput,
 }) => {
 
+    // Build Prompt
     const prompt = buildSolutionPrompt({
         language,
         problem,
         userInput,
     });
 
+    // Generate AI Response
     const rawResponse = await generateContent(prompt);
 
+    // Parse JSON
     const parsedResponse = parseJSON(rawResponse);
 
+    // Validate Response
     const validatedResponse = validateSolution(parsedResponse);
 
+    // Normalize Response
     const normalizedResponse = normalizeSolution(validatedResponse);
 
     return normalizedResponse;

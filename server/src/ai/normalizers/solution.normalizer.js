@@ -2,9 +2,15 @@ const normalizeSolution = (data) => {
 
     data.problem = normalizeProblem(data.problem);
 
-    data.solutions.bruteForce = normalizeApproach(data.solutions.bruteForce);
+    data.solutions.bruteForce = normalizeApproach(
+        data.solutions.bruteForce,
+        true
+    );
 
-    data.solutions.optimal = normalizeApproach(data.solutions.optimal);
+    data.solutions.optimal = normalizeApproach(
+        data.solutions.optimal,
+        false
+    );
 
     return data;
 };
@@ -17,21 +23,55 @@ const normalizeProblem = (problem) => ({
     difficulty: normalizeDifficulty(problem.difficulty),
 });
 
-const normalizeApproach = (approach) => ({
-    ...approach,
-    code: approach.code.trim(),
-    pseudoCode: approach.pseudoCode.trim(),
-    complexity: {
-        time: approach.complexity.time.trim(),
-        space: approach.complexity.space.trim(),
-    },
-});
+const normalizeApproach = (approach, isBruteForce) => {
+
+    const normalized = {
+        ...approach,
+
+        summary: approach.summary.trim(),
+
+        code: approach.code.trim(),
+
+        algorithm: normalizeArray(approach.algorithm),
+
+        pseudoCode: normalizeArray(approach.pseudoCode),
+
+        complexity: {
+            time: approach.complexity.time.trim(),
+            space: approach.complexity.space.trim(),
+        },
+    };
+
+    if (isBruteForce) {
+
+        normalized.pros = normalizeArray(approach.pros);
+
+        normalized.cons = normalizeArray(approach.cons);
+
+    } else {
+
+        normalized.whyOptimal = normalizeArray(
+            approach.whyOptimal
+        );
+
+        normalized.bestPractices = normalizeArray(
+            approach.bestPractices
+        );
+
+    }
+
+    return normalized;
+};
+
+const normalizeArray = (array) =>
+    array
+        .map(item => item.trim())
+        .filter(Boolean);
 
 const normalizePlatform = (platform) => {
 
-    const value = platform.trim().toLowerCase();
+    switch (platform.trim().toLowerCase()) {
 
-    switch (value) {
         case "leetcode":
             return "LeetCode";
 
@@ -48,9 +88,8 @@ const normalizePlatform = (platform) => {
 
 const normalizeDifficulty = (difficulty) => {
 
-    const value = difficulty.trim().toLowerCase();
+    switch (difficulty.trim().toLowerCase()) {
 
-    switch (value) {
         case "easy":
             return "Easy";
 

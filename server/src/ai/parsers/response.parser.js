@@ -1,17 +1,21 @@
 const parseJSON = (text) => {
-  try {
-    const cleaned = text
-      .replace(/```json/g, "")
-      .replace(/```/g, "")
-      .trim();
+    if (typeof text !== "string") {
+        throw new Error("AI response must be a string.");
+    }
 
-    return JSON.parse(cleaned);
+    try {
+        const cleaned = text
+            .replace(/```json/gi, "")
+            .replace(/```/g, "")
+            .trim();
 
-  } catch (error) {
-    throw new Error("Invalid JSON returned by AI.");
-  }
+        return JSON.parse(cleaned);
+
+    } catch (error) {
+        throw new Error("Invalid JSON returned by AI.");
+    }
 };
 
 module.exports = {
-  parseJSON,
+    parseJSON,
 };

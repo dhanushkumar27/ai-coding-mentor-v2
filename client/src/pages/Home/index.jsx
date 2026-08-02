@@ -40,7 +40,7 @@ const Home = () => {
 
                         <button
                             className="primary-btn"
-                            onClick={() => navigate("/section")}
+                            onClick={() => navigate("/workspace")}
                         >
                             🚀 Start Coding
                         </button>

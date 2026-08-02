@@ -5,12 +5,12 @@ import "./index.css";
 
 const FeedbackTab = ({
     feedback,
-   rightPanelStatus,
+   rightPanelFeedbackStatus,
     onClickReviewCode,
 }) => {
 
     // Loading State
-    if (rightPanelStatus === responseStatus.inProgress) {
+    if (rightPanelFeedbackStatus === responseStatus.inProgress) {
         return (
             <div className="feedback-state">
 
@@ -27,7 +27,7 @@ const FeedbackTab = ({
     }
 
     // Empty State
-    if (rightPanelStatus === responseStatus.failure) {
+    if (rightPanelFeedbackStatus === responseStatus.failure) {
         return (
             <div className="feedback-state">
                 <h1>Try Again</h1>
@@ -41,7 +41,7 @@ const FeedbackTab = ({
         );
     }
 
-    if(rightPanelStatus === responseStatus.success){
+    if(rightPanelFeedbackStatus === responseStatus.success){
     const {
         identifiedProblem = "Unknown Problem",
 
@@ -291,7 +291,7 @@ const FeedbackTab = ({
                     className="review-btn"
                     onClick={onClickReviewCode}
                 >
-                    Review Code
+                   Get Feedback
                 </button>
 
             </div>

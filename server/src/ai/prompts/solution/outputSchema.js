@@ -3,29 +3,66 @@ Return ONLY valid JSON.
 
 {
   "problem": {
-    "name": "",
-    "platform": "",
-    "problemNumber": "",
-    "difficulty": ""
-  },
+  "name": "",
+  "platform": "",
+  "problemNumber": "",
+  "difficulty": "",
+  "recognized": true
+},
 
   "solutions": {
     "bruteForce": {
+      "summary": "",
+
       "code": "",
+
+      "algorithm": [
+        ""
+      ],
+
       "complexity": {
         "time": "",
         "space": ""
       },
-      "pseudoCode": ""
+
+      "pseudoCode": [
+   ""
+],
+
+      "pros": [
+        ""
+      ],
+
+      "cons": [
+        ""
+      ]
     },
 
     "optimal": {
+      "summary": "",
+
       "code": "",
+
+      "algorithm": [
+        ""
+      ],
+
       "complexity": {
         "time": "",
         "space": ""
       },
-      "pseudoCode": ""
+
+      "pseudoCode": [
+   ""
+],
+
+      "whyOptimal": [
+        ""
+      ],
+
+      "bestPractices": [
+        ""
+      ]
     }
   }
 }
