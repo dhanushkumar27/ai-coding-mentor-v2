@@ -20,6 +20,8 @@ const generateFeedback = async ({
         userInput,
     });
 
+    console.log(prompt);
+
     const rawResponse = await generateContent(prompt);
 
     const parsedResponse = parseJSON(rawResponse);

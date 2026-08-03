@@ -1,6 +1,7 @@
 const { generateFeedback } = require("../services/feedback.service");
 
 const feedbackController = async (req, res) => {
+    console.log(req.body);
     try {
 
         const {
